@@ -20,12 +20,11 @@ Haber metnini 3 madde işaretiyle özetle. Kurallar:
 - Önemli bir isim ve doğrudan alıntısı varsa mutlaka ekle.
 - Giriş cümlesi, başlık veya "İşte özet:" gibi ifadeler kullanma; doğrudan 3 maddeyi yaz.
 - Dil: net, temiz, kurallı Türkçe.
+- Yalnızca ilgilenilen konularda haber yaz. İlgilenilmeyen konularda -> "PAS"
 """
 
 
 def summarize_single_article(title, raw_text):
-    if not raw_text or len(raw_text.strip()) < 100:
-        return "Haber içeriği özetlenemeyecek kadar kısa veya boş."
 
     try:
         response = client.chat.completions.create(
@@ -69,11 +68,9 @@ def process_todays_summaries():
             for num, (db_id, title, raw_text) in enumerate(unprocessed_news, 1):
                 print(f"[{num}/{len(unprocessed_news)}] Özetleniyor: {title[:50]}...")
 
-                # OpenAI'dan özeti al
                 summary_bullet_points = summarize_single_article(title, raw_text)
 
                 if summary_bullet_points:
-                    # Başarıyla gelen özeti veritabanına kaydet
                     cur.execute("""
                                 UPDATE news
                                 SET ai_analysis = %s
