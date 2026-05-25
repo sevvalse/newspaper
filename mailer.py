@@ -23,12 +23,14 @@ def send_daily_newspaper():
     smtp_port = int(os.getenv("SMTP_PORT", 587))
     sender_email = os.getenv("SMTP_EMAIL")
     sender_password = os.getenv("SMTP_PASSWORD")
-    receiver_email = os.getenv("RECEIVER_EMAIL")
+
+    receiver_emails_raw = os.getenv("RECEIVER_EMAIL", "")
+    receiver_list = [email.strip() for email in receiver_emails_raw.split(",") if email.strip()]
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = "Günlük Kişisel Gazeteniz Hazır!"
     msg["From"] = f"Dijital Gazete"
-    msg["To"] = receiver_email
+    msg["To"] = ", ".join(receiver_list)
 
     part = MIMEText(html_content, "html", "utf-8")
     msg.attach(part)
@@ -41,9 +43,9 @@ def send_daily_newspaper():
         server.login(sender_email, sender_password)
         print("Giriş başarılı. E-posta postalanıyor...")
 
-        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.sendmail(sender_email, receiver_list, msg.as_string())
         server.quit()
-        print(f"Gazete başarıyla gönderildi -> {receiver_email}")
+        print(f"Gazete başarıyla gönderildi -> {', '.join(receiver_list)}")
 
         print("Gün sonu veritabanı temizliği başlatılıyor...")
         clear_yesterdays_data()

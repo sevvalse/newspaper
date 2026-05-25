@@ -30,7 +30,7 @@ def fetch_and_save_news():
     try:
         with conn.cursor() as cur:
             for source_name, feed_url in NEWS_FEEDS.items():
-                print(f"📡 {source_name} RSS akışı taranıyor...")
+                print(f"{source_name} RSS akışı taranıyor...")
                 feed = feedparser.parse(feed_url)
 
                 saved_count = 0
