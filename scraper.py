@@ -17,7 +17,7 @@ def scrape_full_article(url):
         article.parse()
         return article.text
     except Exception as e:
-        print(f"⚠İçerik kazınırken hata oluştu ({url}): {e}")
+        print(f"İçerik kazınırken hata oluştu ({url}): {e}")
         return None
 
 
@@ -50,6 +50,9 @@ def fetch_and_save_news():
 
                     print(f"Yeni haber bulundu: {title[:50]}...")
                     raw_text = scrape_full_article(link)
+
+                    if not raw_text or len(raw_text.strip()) < 100:
+                        continue
 
                     insert_query = """
                                    INSERT INTO news (source, title, link, summary, raw_text)
