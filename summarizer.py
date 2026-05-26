@@ -20,7 +20,7 @@ Haber metnini 3 madde işaretiyle özetle. Kurallar:
 - Önemli bir isim ve doğrudan alıntısı varsa mutlaka ekle.
 - Giriş cümlesi, başlık veya "İşte özet:" gibi ifadeler kullanma; doğrudan 3 maddeyi yaz.
 - Dil: net, temiz, kurallı Türkçe.
-- Yalnızca ilgilenilen konularda haber yaz. İlgilenilmeyen konularda -> "PAS"
+- Yalnızca ilgilenilen konulardaki önemli haberleri yaz. İlgilenilmeyen konularda -> "PAS". İlgilendiğim konuda olsa bile kısa, küçük, önemsiz haberler -> "PAS"
 """
 
 

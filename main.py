@@ -13,7 +13,7 @@ def daytime_scraper_task():
 
 def midnight_digest_task():
     """Gece yarısı tetiklenen yapay zeka özetleme ve mail gönderim görevi."""
-    print(f"\n🌌 [{time.strftime('%X')}] Gece yarısı bülten operasyonu başladı!")
+    print(f"\n [{time.strftime('%X')}] bülten operasyonu başladı!")
 
     print("OpenAI özetleme motoru tetikleniyor...")
     process_todays_summaries()
@@ -22,20 +22,20 @@ def midnight_digest_task():
     print("Gazete derleniyor ve SMTP ile gönderiliyor...")
     send_daily_newspaper()
 
-    print(f"[{time.strftime('%X')}] Gece yarısı operasyonu başarıyla bitti. Yeni gün başladı.")
+    print(f"[{time.strftime('%X')}] operasyonu başarıyla bitti.")
 
 
-schedule.every().day.at("09:00").do(daytime_scraper_task)
+schedule.every().day.at("08:00").do(daytime_scraper_task)
 schedule.every().day.at("14:00").do(daytime_scraper_task)
-schedule.every().day.at("20:00").do(daytime_scraper_task)
+schedule.every().day.at("18:50").do(daytime_scraper_task)
+schedule.every().day.at("23:30").do(daytime_scraper_task)
 
-schedule.every().day.at("00:00").do(midnight_digest_task)
+schedule.every().day.at("19:00").do(midnight_digest_task)
 
 if __name__ == "__main__":
     print("Yapay Zeka Destekli Gazete Otomasyonu Başlatıldı!")
     print("Sistem arka planda zamanlanan saatleri bekliyor...")
 
-    send_daily_newspaper()
 
     while True:
         schedule.run_pending()

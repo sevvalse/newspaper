@@ -4,7 +4,7 @@ import psycopg2
 from db import get_db_connection
 
 NEWS_FEEDS = {
-    "BBC Türkçe": "https://feeds.bbci.co.uk/turkce/rss.xml",
+   # "BBC Türkçe": "https://feeds.bbci.co.uk/turkce/rss.xml",
     "NTV Gündem": "https://www.ntv.com.tr/gundem.rss",
     "Sözcü": "https://www.sozcu.com.tr/rss/son-dakika.xml"
 }
