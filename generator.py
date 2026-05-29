@@ -1,4 +1,5 @@
 import datetime
+import holidays
 from jinja2 import Template
 from db import get_db_connection
 
@@ -52,11 +53,24 @@ def build_html_newsletter():
 
     template = Template(template_content)
 
+    tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
+    tomorrow_day_of_week = tomorrow.weekday()
+    tr_holidays = holidays.Turkey(years=tomorrow.year)
+
+    if tomorrow_day_of_week in [5, 6]:  # Cumartesi veya Pazar
+        borsa_durumu = "KAPALI (Hafta Sonu)"
+    elif tomorrow.strftime('%Y-%m-%d') in tr_holidays:
+        tatil_adi = tr_holidays.get(tomorrow.strftime('%Y-%m-%d'))
+        borsa_durumu = f"KAPALI (Resmi Tatil: {tatil_adi})"
+    else:
+        borsa_durumu = "AÇIK (İş Günü)"
+
     today_str = datetime.datetime.now().strftime("%d %B %Y - %A")
 
     final_html = template.render(
         date=today_str,
-        news_list=news_list
+        news_list=news_list,
+        borsa_durumu=borsa_durumu
     )
 
     return final_html
