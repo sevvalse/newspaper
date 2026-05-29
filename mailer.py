@@ -24,6 +24,16 @@ def send_daily_newspaper():
     sender_email = os.getenv("SMTP_EMAIL")
     sender_password = os.getenv("SMTP_PASSWORD")
 
+    if not smtp_server:
+        print("HATA: .env dosyasında 'SMTP_SERVER' tanımlanmamış!")
+        return False
+    if not sender_email:
+        print("HATA: .env dosyasında 'SMTP_EMAIL' tanımlanmamış!")
+        return False
+    if not sender_password:
+        print("HATA: .env dosyasında 'SMTP_PASSWORD' tanımlanmamış!")
+        return False
+
     receiver_emails_raw = os.getenv("RECEIVER_EMAIL", "")
     receiver_list = [email.strip() for email in receiver_emails_raw.split(",") if email.strip()]
 

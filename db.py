@@ -47,7 +47,10 @@ def create_tables():
         conn.close()
 
 def clear_yesterdays_data():
-    query = "DELETE FROM news;"
+    query = """
+    DELETE FROM news 
+    WHERE created_at < NOW() - INTERVAL '1 day';
+    """
     conn = get_db_connection()
     if not conn:
         return
@@ -56,7 +59,7 @@ def clear_yesterdays_data():
         with conn.cursor() as cur:
             cur.execute(query)
             conn.commit()
-            print("Gün sonu temizliği yapıldı: Tüm eski veriler veritabanından silindi.")
+            print("1 günden eski olan geçmiş haber verileri başarıyla temizlendi.")
     except Exception as e:
         print(f"Veri silme işlemi başarısız oldu: {e}")
     finally:

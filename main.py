@@ -18,7 +18,6 @@ def midnight_digest_task():
     print("OpenAI özetleme motoru tetikleniyor...")
     process_todays_summaries()
 
-    # Özetlenenleri HTML gazeteye dönüştür, mail at ve DB'yi sil
     print("Gazete derleniyor ve SMTP ile gönderiliyor...")
     send_daily_newspaper()
 
