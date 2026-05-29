@@ -27,7 +27,6 @@ def midnight_digest_task():
 schedule.every().day.at("08:00").do(daytime_scraper_task)
 schedule.every().day.at("14:00").do(daytime_scraper_task)
 schedule.every().day.at("18:50").do(daytime_scraper_task)
-schedule.every().day.at("23:30").do(daytime_scraper_task)
 
 schedule.every().day.at("19:00").do(midnight_digest_task)
 
