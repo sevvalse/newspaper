@@ -13,7 +13,7 @@ def get_db_connection():
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD"),
             port=os.getenv("DB_PORT"),
-            schema=os.getenv("DB_SCHEMA")
+            options=f"-c search_path={os.getenv('DB_SCHEMA')}"
         )
         return conn
     except Exception as e:
