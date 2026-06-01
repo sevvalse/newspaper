@@ -34,6 +34,8 @@ if __name__ == "__main__":
     print("Yapay Zeka Destekli Gazete Otomasyonu Başlatıldı!")
     print("Sistem arka planda zamanlanan saatleri bekliyor...")
 
+    daytime_scraper_task()
+    midnight_digest_task()
 
     while True:
         schedule.run_pending()
